@@ -6,3 +6,4 @@ print """ this
 will ignore line breaks
 until python finds 
 another three double quotes"""
+ print "new thing"
