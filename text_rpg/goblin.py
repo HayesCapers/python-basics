@@ -4,6 +4,7 @@ class Goblin(object):
 		self.power = 2
 		self.name = 'Goblin'
 		self.xp_value = 5
+		max_health = 6
 
 	def take_damage(self, damage):
 		self.health -= damage

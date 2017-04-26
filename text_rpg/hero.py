@@ -1,14 +1,11 @@
 class Hero(object):
-	def __init__(self, name = 'Incognitio'):
+	def __init__(self, name = 'Ash'):
 		self.name = name
 		self.health = 10
 		self.power = 5
 		self.max_health = self.health
 		self.xp = 0
 		self.level = 1
-
-	def cheer_hero(self):
-		print 'Fight hard, %s' % self.name
 
 	def check_level(self):
 		if self.xp > 3:
