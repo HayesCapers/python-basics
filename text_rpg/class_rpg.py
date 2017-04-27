@@ -1,17 +1,33 @@
+import time
 from hero import Hero
 from plant import Bulbasaur
 from water import Squirtle
 from fire import Charmander
 from random import randint
+from game_events import Battle
+from game_events import Main_menu
                              
 game_on = True                                                                            
 user_first_time_in_game = True
 pokemon_select = True
 main_menu = True
-current_pokemon = []
+the_hero = Hero()
+battle_engine = Battle()
+menu = Main_menu()
+possible_wild_pokemon = [Charmander(), Squirtle(), Bulbasaur()]
+selected_wild_pokemon = Charmander()
+another_pokemon = Charmander()
 
-while game_on == True:
-	while user_first_time_in_game == True:
+while user_first_time_in_game == True:
+
+		print"__________       __                                 "
+		print"\______   \____ |  | __ ____   _____   ____  ____   "
+		print" |     ___/  _ \|  |/ // __ \ /     \ /  _ \/    \  "
+		print" |    |  (  <_> )    <\  ___/|  Y Y  (  <_> )   | \""
+		print" |____|   \____/|__|_\\\ \___  >__|_| /\____/|___| / "
+		print"                     \/    \/      \/           \/  "
+
+
 		print """\nHello there! Welcome to the world of POKEMON! My name is OAK!
 		People call me the POKEMON PROF! \n\nFirst, what is your name?""" 
 		hero_name = raw_input('> ')
@@ -23,8 +39,8 @@ while game_on == True:
 		user_first_time_in_game = False
 
 
-	while pokemon_select == True:
-		print """\n\n\n...Now that I know evrything about you, It is time to pick your first pokemon.
+while pokemon_select == True:
+		print """\n\n\n...Now that I know everything about you, It is time to pick your first pokemon.
 		Here, %s! There are 3 POKEMON here! Haha! They are inside the
 		POKE BALLS. When I was young, I was a serious POKEMON trainer.
 		In my old age, I have only 3 left, but you can have one! Choose!
@@ -38,14 +54,9 @@ while game_on == True:
 			print "So! You want Squirtle? (y/n)" 
 			user_input = raw_input('> ')
 			if user_input == 'y':
-				print "Would you like to name Suirtle? (y/n)"
-				user_input = raw_input('> ')
-				if user_input == 'y':
-					first_pokemon_name = raw_input('Enter name: ')
-					first_pokemon = Squirtle(first_pokemon_name)
-				else:
-					first_pokemon = Squirtle()	
-				current_pokemon.append(first_pokemon)
+				first_pokemon = Squirtle()
+				first_pokemon.name_select(first_pokemon)	
+				the_hero.add_pokemon(first_pokemon)
 				pokemon_select = False
 			elif user_input == 'n':
 				pass
@@ -56,14 +67,12 @@ while game_on == True:
 			print "So! You want Charmander? (y/n)" 
 			user_input = raw_input('> ')
 			if user_input == 'y':
-				print "Would you like to name Charmander? (y/n)"
+				first_pokemon = Charmander()
+				print "Would you like to name %s? (y/n)" % first_pokemon.name
 				user_input = raw_input('> ')
 				if user_input == 'y':
-					first_pokemon_name = raw_input('Enter name: ')
-					first_pokemon = Charmander(first_pokemon_name)
-				else:
-					first_pokemon = Charmander()	
-				current_pokemon.append(first_pokemon)
+					first_pokemon.name_select(first_pokemon)
+				the_hero.add_pokemon(first_pokemon)
 				pokemon_select = False
 			elif user_input == 'n':
 				pass
@@ -71,17 +80,17 @@ while game_on == True:
 				print "Invalid input"
 				pass	
 		elif user_input == '3':
-			print "So! You want Squirtle? (y/n)" 
+			print "So! You want Bulbasaur? (y/n)" 
 			user_input = raw_input('> ')
 			if user_input == 'y':
-				print "Would you like to name Bulbasaur? (y/n)"
+				first_pokemon = Bulbasaur()
+				print "Would you like to name %s? (y/n)" % first_pokemon.name
 				user_input = raw_input('> ')
 				if user_input == 'y':
-					first_pokemon_name = raw_input('Enter name: ')
-					first_pokemon = Bulbasaur(first_pokemon_name)
-				else:
-					first_pokemon = Bulbasaur()	
-				current_pokemon.append(first_pokemon)
+					first_pokemon.name_select(first_pokemon)	
+				the_hero.add_pokemon(first_pokemon)
+				the_hero.add_pokemon(another_pokemon)
+				print the_hero.current_pokemon
 				pokemon_select = False
 			elif user_input == 'n':
 				pass
@@ -91,9 +100,51 @@ while game_on == True:
 		else:
 			print "Invalid input"
 			pass	
+	
 
-	print "Congratulations! You now have your first pokemon. Say hello to your %s named %s." % (first_pokemon.type_name, first_pokemon.name)
-	break
+print "Congratulations! You now have your first pokemon. Say hello to your %s named %s." % (first_pokemon.type_name, first_pokemon.name)
+print '...'
+time.sleep(1.5)
+
+menu.main(the_hero, selected_wild_pokemon, battle_engine)	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			# print '----------------------------------------'
+			# print '-Welcome %s. What would you like to do?-' % the_hero.name
+			# print '----------------------------------------'
+			# time.sleep(1.5)
+			# print '1. Check pokemon status'
+			# print '2. Explore the tall grass'
+			# print '3. Visit Pokemart'
+			# print '4. Visit Pokemon Center'
+			# print '5. Visit Gym'
+			# print '6. Give up on the dream of becoming a pokemon Master.'
+			# input = int(raw_input('> '))
+
+			# if input == 1:
+			# 	the_hero.pokemon_status()
+			# # elif input == 2:
+			# elif input == 2:
+			# 	battle_engine.wild_battle(the_hero, selected_wild_pokemon)
+			# elif input == 6:
+			# 	break
+
+# battle_engine.wild_battle(the_hero, selected_wild_pokemon)
+# while game_on == True:
+
+
 
 # while main_menu == True:
 	
@@ -120,14 +171,15 @@ while game_on == True:
 
 
 
-
-
+# monster_types = ['goblin', 'vampire']
+# monsters = []
 
 # print 'How many enemies are you willing to fight?'
 # number_of_enemies = int(raw_input('> '))
 # for i in range(0, number_of_enemies):
-# 	monsters.append(monster_selector[randint(0,1)])
-# 	# monsters.append(monster_selector)
+# 	rand_num = randint(0, len(monster_types) - 1)
+# 	if monster_types[rand_num] == 'goblin':
+# 		monsters.append(Goblin())
 
 
 # for monster in monsters:
